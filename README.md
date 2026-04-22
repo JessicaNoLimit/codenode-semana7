@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Semana 7 - Next.js + WordPress REST API 🚀
 
-## Getting Started
+## 🌐 Descripción
 
-First, run the development server:
+En esta práctica he desarrollado una aplicación web con **Next.js** conectada a la **REST API de WordPress**.
+
+El objetivo ha sido consumir contenido dinámico desde un CMS real y mostrarlo en un frontend moderno, simulando un entorno de desarrollo profesional.
+
+Se ha trabajado con un Custom Post Type llamado **Portfolio**, desde el cual se obtienen los proyectos y sus datos asociados.
+
+---
+
+## ⚙️ Funcionalidades
+
+- Página de inicio (`/`) con presentación personal
+- Página de proyectos (`/proyectos`) con listado dinámico
+- Conexión con WordPress mediante REST API
+- Ruta dinámica (`/proyectos/[slug]`) para cada proyecto
+- Visualización de contenido real desde WordPress
+- Renderizado de campos personalizados (ACF):
+  - Descripción corta
+  - Imagen del proyecto
+  - URL del proyecto
+- Navegación entre páginas
+
+---
+
+## 🧠 Tecnologías utilizadas
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- WordPress (CMS)
+- WordPress REST API
+- ACF (Advanced Custom Fields)
+
+---
+
+## 📁 Estructura del proyecto
+
+- `/` → Página de inicio
+- `/proyectos` → Listado de proyectos
+- `/proyectos/[slug]` → Detalle individual de cada proyecto
+
+---
+
+## 🔗 Consumo de la API
+
+Los datos se obtienen desde WordPress mediante el siguiente endpoint:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+http://127.0.0.1/wordpress/wp-json/wp/v2/portfolio
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Cada proyecto se filtra por su slug para mostrar el contenido en su página correspondiente.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+🧩 Campos personalizados (ACF)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Se han utilizado los siguientes campos en WordPress:
 
-## Learn More
+descripcion_corta → texto descriptivo del proyecto
+url_proyecto → enlace externo al proyecto
+imagen_proyecto → imagen destacada del proyecto
 
-To learn more about Next.js, take a look at the following resources:
+Estos campos se consumen desde Next.js y se muestran dinámicamente en el frontend.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+✅ Resultado
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+El resultado es una aplicación funcional que:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Muestra proyectos desde WordPress
+Permite navegar entre ellos
+Renderiza contenido dinámico en tiempo real
+Simula un flujo real de desarrollo web profesional
+
+👩‍💻 Autor
+
+Jesica Serrano
