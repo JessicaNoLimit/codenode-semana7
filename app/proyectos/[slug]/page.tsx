@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 type ImagenProyecto =
   | string
@@ -66,11 +67,13 @@ export default async function ProyectoDetalle({
     <main className="min-h-screen px-6 py-16 flex items-center justify-center">
       <div className="max-w-4xl w-full bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 text-white">
         {imagen && (
-          <img
-            src={imagen}
-            alt={proyecto.title.rendered}
-            className="w-full h-auto rounded-xl mb-6 object-cover"
-          />
+          <Image
+  src={imagen}
+  alt={proyecto.title.rendered}
+  width={800}
+  height={400}
+  className="w-full h-auto rounded-xl mb-6 object-cover"
+/>
         )}
 
         <h1 className="text-4xl font-bold mb-6">
