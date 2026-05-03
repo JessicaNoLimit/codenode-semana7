@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
+
 
 export default function NuevoProyectoPage() {
   const [titulo, setTitulo] = useState("");
@@ -12,11 +14,26 @@ const [mensaje, setMensaje] = useState("");
 const [cargando, setCargando] = useState(false);
   
   const router = useRouter();
+const { data: session, isPending } = authClient.useSession();
+
+useEffect(() => {
+  if (!isPending && !session) {
+    router.push("/login");
+  }
+}, [isPending, session, router]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 setError("");
 setMensaje("");
+
+if (isPending || !session) {
+  return (
+    <main className="min-h-screen flex items-center justify-center text-white">
+      Comprobando sesión...
+    </main>
+  );
+}
 
 if (!titulo.trim() || !descripcion.trim() || !url.trim()) {
   setError("Por favor, completa todos los campos.");
