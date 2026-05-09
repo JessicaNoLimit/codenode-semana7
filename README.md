@@ -1,12 +1,6 @@
-🚀 Semana 7 / 8 - Next.js + API + Autenticación
+# 🚀 Semana 9 — Next.js + Auth + Dashboard Privado
 
-🌐 Descripción
-
-En esta práctica he desarrollado una aplicación web completa con Next.js, evolucionando desde el consumo de una API de WordPress hasta una aplicación con autenticación de usuarios y gestión de proyectos propia.
-
-El objetivo ha sido simular un entorno de desarrollo real, trabajando tanto con consumo de APIs externas como con la creación de una API interna, autenticación y operaciones CRUD.
-
-⚠️ Nota sobre producción (Vercel)
+## ⚠️ Nota sobre producción (Vercel)
 
 La aplicación está desplegada en Vercel:
 
@@ -14,75 +8,110 @@ La aplicación está desplegada en Vercel:
 
 Debido al uso de SQLite como base de datos local, los datos no persisten en producción, ya que Vercel utiliza un entorno serverless.
 
-![Captura de proyectos en local](image-1.png)
+## 🌐 Descripción
 
-Para un entorno real, se debería utilizar una base de datos externa como:
+En esta práctica he desarrollado una aplicación web con Next.js enfocada en autenticación, gestión de usuarios y paneles privados.
 
-Supabase
-PlanetScale
-Railway
+El proyecto evolucionó desde un portfolio básico hacia un pequeño dashboard privado de gestión de proyectos personales, incorporando funcionalidades reales de aplicaciones modernas como login, roles, comentarios y panel de administración.
 
-⚙️ Funcionalidades
+---
 
-Página de inicio (/) con presentación personal
-Sistema de autenticación:
-Registro de usuarios (/register)
-Inicio de sesión (/login)
-Protección de rutas privadas
-Página de proyectos (/proyectos) protegida por autenticación
-Creación de nuevos proyectos
-Edición de proyectos existentes
-Eliminación de proyectos
-Listado dinámico de proyectos
-Navegación entre páginas
+## ⚙️ Funcionalidades implementadas
 
-🔐 Autenticación
+### 🔐 Autenticación
+- Registro de usuarios
+- Inicio de sesión
+- Logout funcional
+- Manejo de sesiones con Better Auth
+- Protección de rutas privadas
 
-Se ha implementado un sistema de autenticación con Better Auth, que permite:
+### 👤 Perfil de usuario
+- Página `/perfil`
+- Edición del nombre de usuario
+- Saludo personalizado dinámico
+- Visualización del rol del usuario
 
-Registro de usuarios mediante email y contraseña
-Inicio de sesión seguro
-Protección de rutas (solo usuarios autenticados pueden acceder a /proyectos)
+### 📁 Gestión de proyectos
+- CRUD completo de proyectos
+- Creación, edición y eliminación
+- Proyectos asociados al usuario autenticado
+- Filtrado de proyectos por usuario
 
-🧠 Tecnologías utilizadas
-Next.js
-React
-TypeScript
-Tailwind CSS
-Better Auth
-SQLite (base de datos local)
-API Routes (Next.js)
+### 💬 Comentarios
+- Sistema de comentarios en proyectos
+- Comentarios almacenados en SQLite
+- Asociación entre usuario, proyecto y comentario
 
-📁 Estructura del proyecto
-/ → Página de inicio
-/login → Inicio de sesión
-/register → Registro de usuario
-/proyectos → Listado de proyectos (protegido)
-/proyectos/nuevo → Crear proyecto
-/proyectos/[slug] → Detalle de proyecto
-/proyectos/editar/[id] → Editar proyecto
-/api/auth → Endpoints de autenticación
-/api/proyectos → API para gestión de proyectos
+### 👑 Panel Admin
+- Ruta protegida `/admin`
+- Acceso exclusivo para usuarios con rol `admin`
+- Estadísticas generales:
+  - número de usuarios
+  - número de proyectos
+  - número de comentarios
 
-🔌 API propia
+---
 
-Se ha desarrollado una API interna con Next.js para gestionar los proyectos:
+## 🗄️ Base de datos
 
-GET /api/proyectos → Obtener todos los proyectos
-POST /api/proyectos → Crear nuevo proyecto
-PUT /api/proyectos → Editar proyecto
-DELETE /api/proyectos → Eliminar proyecto
+Se ha utilizado SQLite junto con `better-sqlite3`.
 
-✅ Resultado
+Tablas principales:
+- `user`
+- `session`
+- `account`
+- `proyectos`
+- `comentarios`
 
-El resultado es una aplicación funcional que:
+---
 
-Implementa autenticación real de usuarios
-Protege rutas privadas
-Permite gestionar proyectos (CRUD)
-Simula un flujo completo de desarrollo web profesional
-Está desplegada en producción
+## 🧠 Conceptos trabajados
 
-👩‍💻 Autor
+Durante esta práctica se trabajaron conceptos importantes de desarrollo web moderno:
 
-Jesica Serrano
+- autenticación
+- sesiones
+- protección de rutas
+- roles de usuario
+- relaciones entre tablas
+- renderizado dinámico
+- manejo de estado autenticado
+- paneles privados
+- CRUDs completos
+- estructura de aplicaciones reales con Next.js
+
+---
+
+## 🛠️ Tecnologías utilizadas
+
+- Next.js
+- TypeScript
+- TailwindCSS
+- Better Auth
+- SQLite
+- better-sqlite3
+- Vercel
+
+---
+
+## 📦 Instalación
+
+Clonar repositorio:
+```bash
+git clone https://github.com/JessicaNoLimit/codenode-semana7
+
+Instalar dependencias:
+npm install
+
+Ejecutar servidor:
+
+npm run dev
+
+🔒 Variables de entorno
+
+Crear archivo .env utilizando .env.example.
+
+
+## 📚 Aprendizaje
+
+Esta práctica permitió comprender mejor cómo estructurar aplicaciones reales con autenticación, gestión de usuarios y acceso privado, acercándose mucho más a una arquitectura utilizada en aplicaciones modernas.

@@ -1,5 +1,11 @@
 import Link from "next/link";
 import BotonEliminarProyecto from "@/components/BotonEliminarProyecto";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+import LogoutButton from "@/components/LogoutButton";
+import db from "@/lib/db";
+import ComentarioForm from "@/components/ComentarioForm";
 
 type Proyecto = {
   id: number;
@@ -8,31 +14,72 @@ type Proyecto = {
   url: string;
 };
 
-async function getProyectos(): Promise<Proyecto[]> {
-  try {
-    const res = await fetch("http://localhost:3000/api/proyectos", {
-      cache: "no-store",
-    });
+type Comentario = {
+  id: number;
+  texto: string;
+  proyectoId: number;
+  userId: string;
+  createdAt: string;
+};
 
-    if (!res.ok) return [];
+async function getProyectos(userId: string): Promise<Proyecto[]> {
+  return db
+    .prepare("SELECT * FROM proyectos WHERE userId = ?")
+    .all(userId) as Proyecto[];
+}
 
-    return res.json();
-  } catch {
-    return [];
-  }
+function getComentarios(proyectoId: number): Comentario[] {
+  return db
+    .prepare("SELECT * FROM comentarios WHERE proyectoId = ? ORDER BY id DESC")
+    .all(proyectoId) as Comentario[];
 }
 
 export default async function ProyectosPage() {
-  const proyectos = await getProyectos();
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    redirect("/login");
+  }
+
+ const proyectos = await getProyectos(session.user.id);
+ const usuario = db
+  .prepare("SELECT role FROM user WHERE id = ?")
+  .get(session.user.id) as { role: string } | undefined;
+
+const role = usuario?.role || "user";
 
   return (
     <main className="min-h-screen text-white px-6 py-16">
       <div className="max-w-5xl mx-auto">
-        <h1 className="text-4xl md:text-6xl font-bold mb-12 text-center">
+        <h1 className="text-4xl md:text-6xl font-bold mb-4 text-center">
           Mis proyectos
         </h1>
 
-        {/* 🔥 BOTÓN NUEVO PROYECTO */}
+        <p className="text-center text-gray-300 text-lg mb-10">
+  ¡Hola {session.user.name || "usuario"}! 👋
+</p>
+
+<p className="text-center text-sm text-gray-500 mb-8">
+  Rol: <span className="text-gray-300">{role}</span>
+</p>
+
+{role === "admin" && (
+  <div className="flex justify-center mb-8">
+    <Link
+      href="/admin"
+      className="border border-yellow-500/40 text-yellow-300 px-5 py-2 rounded-full text-sm hover:bg-yellow-500 hover:text-black transition"
+    >
+      Ir al panel admin 👑
+    </Link>
+  </div>
+)}
+
+<div className="flex justify-center mb-10">
+  <LogoutButton />
+</div>
+
         <div className="flex justify-center mb-10">
           <Link
             href="/proyectos/nuevo"
@@ -61,16 +108,41 @@ export default async function ProyectosPage() {
                   <p className="text-gray-400">
                     {proyecto.descripcion || "Sin descripción"}
                   </p>
-      </a>
+                </a>
 
-<Link
-  href={`/proyectos/editar/${proyecto.id}`}
-  className="mt-3 mr-4 inline-block text-blue-400 hover:text-blue-200 text-sm"
->
-  Editar
-</Link>
+<div className="mt-6">
+  <h3 className="text-sm text-gray-400 mb-2">💬 Comentarios</h3>
 
-<BotonEliminarProyecto id={proyecto.id} />
+  {getComentarios(proyecto.id).length > 0 ? (
+    getComentarios(proyecto.id).map((comentario) => (
+      <div
+        key={comentario.id}
+        className="text-sm text-gray-300 mb-2 border-b border-gray-800 pb-2"
+      >
+        {comentario.texto}
+      </div>
+    ))
+  ) : (
+    <p className="text-sm text-gray-500">
+      No hay comentarios todavía.
+    </p>
+  )}
+
+  <ComentarioForm
+  proyectoId={proyecto.id}
+  userId={session.user.id}
+/>
+
+</div>
+
+                <Link
+                  href={`/proyectos/editar/${proyecto.id}`}
+                  className="mt-3 mr-4 inline-block text-blue-400 hover:text-blue-200 text-sm"
+                >
+                  Editar
+                </Link>
+
+                <BotonEliminarProyecto id={proyecto.id} />
               </div>
             ))
           ) : (
