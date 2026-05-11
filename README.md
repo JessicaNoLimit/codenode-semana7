@@ -50,6 +50,7 @@ El proyecto evolucionó desde un portfolio básico hacia un pequeño dashboard p
 ## ⚙️ Funcionalidades implementadas
 
 ### 🔐 Autenticación
+
 - Registro de usuarios
 - Inicio de sesión
 - Logout funcional
@@ -58,23 +59,27 @@ El proyecto evolucionó desde un portfolio básico hacia un pequeño dashboard p
 - Persistencia real de sesiones con PostgreSQL
 
 ### 👤 Perfil de usuario
+
 - Página `/perfil`
 - Edición del nombre de usuario
 - Saludo personalizado dinámico
 - Visualización del rol del usuario
 
 ### 📁 Gestión de proyectos
+
 - CRUD completo de proyectos
 - Creación, edición y eliminación
 - Proyectos asociados al usuario autenticado
 - Filtrado de proyectos por usuario
 
 ### 💬 Comentarios
+
 - Sistema de comentarios en proyectos
 - Asociación entre usuario, proyecto y comentario
 - Comentarios protegidos por sesión autenticada
 
 ### 👑 Panel Admin
+
 - Ruta protegida `/admin`
 - Acceso exclusivo para usuarios con rol `admin`
 - Estadísticas generales:
@@ -106,14 +111,17 @@ Después de finalizar la práctica original, se decidió realizar una migración
 ## 🗄️ Base de datos
 
 ### Versión inicial
+
 - SQLite
 - better-sqlite3
 
 ### Versión final
+
 - PostgreSQL
 - Supabase
 
 ### Tablas principales
+
 - `user`
 - `session`
 - `account`
@@ -162,3 +170,4 @@ Clonar repositorio:
 
 ```bash
 git clone https://github.com/JessicaNoLimit/codenode-semana7
+```
