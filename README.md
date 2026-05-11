@@ -2,7 +2,7 @@
 
 ## 🌐 Demo
 
-👉 https://codenode-semana7.vercel.app/
+👉 https://focus-work-space.vercel.app/
 
 ![Página principal](image-2.png)
 
@@ -169,5 +169,6 @@ Durante esta práctica se trabajaron conceptos importantes de desarrollo web mod
 Clonar repositorio:
 
 ```bash
-git clone https://github.com/JessicaNoLimit/codenode-semana7
+git clone github.com/JessicaNoLimit/focus-workspace
 ```
+👉 Desarrollado por Jesica Serrano para CodeNode
