@@ -1,16 +1,18 @@
 import { betterAuth } from "better-auth";
-import Database from "better-sqlite3";
+import { pool } from "@/lib/db";
 
 export const auth = betterAuth({
-  database: new Database("database.sqlite"),
+  database: pool,
   emailAndPassword: {
     enabled: true,
   },
-  session: {
-  additionalFields: {
-    role: {
-      type: "string",
+  user: {
+    additionalFields: {
+      role: {
+        type: "string",
+        required: false,
+        input: false,
+      },
     },
   },
-},
 });

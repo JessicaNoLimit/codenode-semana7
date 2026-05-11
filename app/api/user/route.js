@@ -1,4 +1,4 @@
-import db from "@/lib/db";
+import { query } from "@/lib/db";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
@@ -8,10 +8,7 @@ export async function PUT(request) {
   });
 
   if (!session) {
-    return Response.json(
-      { error: "No autorizado" },
-      { status: 401 }
-    );
+    return Response.json({ error: "No autorizado" }, { status: 401 });
   }
 
   const { name } = await request.json();
@@ -23,11 +20,10 @@ export async function PUT(request) {
     );
   }
 
-  db.prepare("UPDATE user SET name = ?, updatedAt = ? WHERE id = ?").run(
+  await query('UPDATE "user" SET name = $1 WHERE id = $2', [
     name.trim(),
-    new Date().toISOString(),
-    session.user.id
-  );
+    session.user.id,
+  ]);
 
   return Response.json({
     success: true,

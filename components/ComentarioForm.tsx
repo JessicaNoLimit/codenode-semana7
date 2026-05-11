@@ -5,12 +5,10 @@ import { useRouter } from "next/navigation";
 
 type ComentarioFormProps = {
   proyectoId: number;
-  userId: string;
 };
 
 export default function ComentarioForm({
   proyectoId,
-  userId,
 }: ComentarioFormProps) {
   const [texto, setTexto] = useState("");
   const [cargando, setCargando] = useState(false);
@@ -31,7 +29,6 @@ export default function ComentarioForm({
       body: JSON.stringify({
         texto,
         proyectoId,
-        userId,
       }),
     });
 
