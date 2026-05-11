@@ -1,12 +1,41 @@
 # 🚀 Semana 9 — Next.js + Auth + Dashboard Privado
 
-## ⚠️ Nota sobre producción (Vercel)
-
-La aplicación está desplegada en Vercel:
+## 🌐 Demo
 
 👉 https://codenode-semana7.vercel.app/
 
-Debido al uso de SQLite como base de datos local, los datos no persisten en producción, ya que Vercel utiliza un entorno serverless.
+## 👑 Cuenta demo administrador
+
+Para probar el panel de administración puede utilizarse la siguiente cuenta demo:
+
+Email: locademanicomio@gmail.com
+Password: 123456789
+
+⚠️ Cuenta utilizada únicamente con fines de demostración y pruebas del proyecto.
+
+![Inicio de sesión](image.png)
+
+---
+
+# ⚠️ Evolución del proyecto
+
+La práctica original estaba planteada como un pequeño portfolio privado desarrollado con Next.js, autenticación y SQLite local.
+
+Durante el desarrollo, el proyecto evolucionó hacia una aplicación más cercana a un entorno real de trabajo, transformándose en un dashboard privado de gestión de proyectos personales con autenticación, roles y persistencia en la nube.
+
+Inicialmente la aplicación utilizaba SQLite junto con `better-sqlite3`, lo que permitía trabajar correctamente en entorno local, pero presentaba limitaciones en producción debido al funcionamiento serverless de plataformas como Vercel.
+
+Por ello, posteriormente se realizó una migración completa de SQLite hacia PostgreSQL utilizando Supabase como proveedor cloud de base de datos.
+
+Esta migración permitió:
+
+- persistencia real de datos en producción
+- autenticación funcional online
+- almacenamiento permanente de usuarios y sesiones
+- arquitectura más cercana a aplicaciones SaaS modernas
+- despliegue completo en Vercel
+
+---
 
 ## 🌐 Descripción
 
@@ -24,6 +53,7 @@ El proyecto evolucionó desde un portfolio básico hacia un pequeño dashboard p
 - Logout funcional
 - Manejo de sesiones con Better Auth
 - Protección de rutas privadas
+- Persistencia real de sesiones con PostgreSQL
 
 ### 👤 Perfil de usuario
 - Página `/perfil`
@@ -39,8 +69,8 @@ El proyecto evolucionó desde un portfolio básico hacia un pequeño dashboard p
 
 ### 💬 Comentarios
 - Sistema de comentarios en proyectos
-- Comentarios almacenados en SQLite
 - Asociación entre usuario, proyecto y comentario
+- Comentarios protegidos por sesión autenticada
 
 ### 👑 Panel Admin
 - Ruta protegida `/admin`
@@ -52,14 +82,40 @@ El proyecto evolucionó desde un portfolio básico hacia un pequeño dashboard p
 
 ---
 
+## 🔄 Migración SQLite → PostgreSQL (Supabase)
+
+Después de finalizar la práctica original, se decidió realizar una migración completa de la base de datos para acercar el proyecto a un entorno más profesional y funcional en producción.
+
+### Cambios realizados durante la migración
+
+- Eliminación completa de SQLite y `better-sqlite3`
+- Migración de la aplicación a PostgreSQL
+- Integración de Supabase como proveedor cloud
+- Adaptación de Better Auth a PostgreSQL
+- Creación automática de tablas y relaciones
+- Refactorización de queries SQL
+- Protección adicional de APIs mediante sesiones reales
+- Validación de propiedad de proyectos y comentarios
+- Persistencia de usuarios y sesiones en producción
+- Limpieza completa del proyecto y preparación para deploy real
+
+---
+
 ## 🗄️ Base de datos
 
-Se ha utilizado SQLite junto con `better-sqlite3`.
+### Versión inicial
+- SQLite
+- better-sqlite3
 
-Tablas principales:
+### Versión final
+- PostgreSQL
+- Supabase
+
+### Tablas principales
 - `user`
 - `session`
 - `account`
+- `verification`
 - `proyectos`
 - `comentarios`
 
@@ -78,6 +134,10 @@ Durante esta práctica se trabajaron conceptos importantes de desarrollo web mod
 - manejo de estado autenticado
 - paneles privados
 - CRUDs completos
+- APIs protegidas
+- persistencia cloud
+- migración de bases de datos
+- despliegue full stack
 - estructura de aplicaciones reales con Next.js
 
 ---
@@ -88,8 +148,8 @@ Durante esta práctica se trabajaron conceptos importantes de desarrollo web mod
 - TypeScript
 - TailwindCSS
 - Better Auth
-- SQLite
-- better-sqlite3
+- PostgreSQL
+- Supabase
 - Vercel
 
 ---
@@ -97,21 +157,6 @@ Durante esta práctica se trabajaron conceptos importantes de desarrollo web mod
 ## 📦 Instalación
 
 Clonar repositorio:
+
 ```bash
 git clone https://github.com/JessicaNoLimit/codenode-semana7
-
-Instalar dependencias:
-npm install
-
-Ejecutar servidor:
-
-npm run dev
-
-🔒 Variables de entorno
-
-Crear archivo .env utilizando .env.example.
-
-
-## 📚 Aprendizaje
-
-Esta práctica permitió comprender mejor cómo estructurar aplicaciones reales con autenticación, gestión de usuarios y acceso privado, acercándose mucho más a una arquitectura utilizada en aplicaciones modernas.
