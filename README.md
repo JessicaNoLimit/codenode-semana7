@@ -4,6 +4,8 @@
 
 👉 https://codenode-semana7.vercel.app/
 
+![Página principal](image-2.png)
+
 ## 👑 Cuenta demo administrador
 
 Para probar el panel de administración puede utilizarse la siguiente cuenta demo:
