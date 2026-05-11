@@ -4,7 +4,7 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import LogoutButton from "@/components/LogoutButton";
-import db from "@/lib/db";
+import { query } from "@/lib/db";
 import ComentarioForm from "@/components/ComentarioForm";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 
@@ -13,6 +13,7 @@ type Proyecto = {
   titulo: string;
   descripcion: string;
   url: string;
+  userId: string;
 };
 
 type Comentario = {
@@ -24,15 +25,45 @@ type Comentario = {
 };
 
 async function getProyectos(userId: string): Promise<Proyecto[]> {
-  return db
-    .prepare("SELECT * FROM proyectos WHERE userId = ?")
-    .all(userId) as Proyecto[];
+  const { rows } = await query(
+    'SELECT id, titulo, descripcion, url, "userId" FROM proyectos WHERE "userId" = $1 ORDER BY id DESC',
+    [userId]
+  );
+
+  return rows as Proyecto[];
 }
 
-function getComentarios(proyectoId: number): Comentario[] {
-  return db
-    .prepare("SELECT * FROM comentarios WHERE proyectoId = ? ORDER BY id DESC")
-    .all(proyectoId) as Comentario[];
+async function getRole(userId: string): Promise<string> {
+  const { rows } = await query(
+    'SELECT role FROM "user" WHERE id = $1 LIMIT 1',
+    [userId]
+  );
+
+  return rows[0]?.role || "user";
+}
+
+async function getComentariosByProyectoIds(
+  proyectoIds: number[]
+): Promise<Map<number, Comentario[]>> {
+  if (proyectoIds.length === 0) {
+    return new Map();
+  }
+
+  const { rows } = await query(
+    'SELECT id, texto, "proyectoId", "userId", "createdAt" FROM comentarios WHERE "proyectoId" = ANY($1::int[]) ORDER BY id DESC',
+    [proyectoIds]
+  );
+
+  const comentarios = rows as Comentario[];
+  const comentariosPorProyecto = new Map<number, Comentario[]>();
+
+  for (const comentario of comentarios) {
+    const actuales = comentariosPorProyecto.get(comentario.proyectoId) || [];
+    actuales.push(comentario);
+    comentariosPorProyecto.set(comentario.proyectoId, actuales);
+  }
+
+  return comentariosPorProyecto;
 }
 
 export default async function ProyectosPage() {
@@ -45,11 +76,10 @@ export default async function ProyectosPage() {
   }
 
   const proyectos = await getProyectos(session.user.id);
-  const usuario = db
-    .prepare("SELECT role FROM user WHERE id = ?")
-    .get(session.user.id) as { role: string } | undefined;
-
-  const role = usuario?.role || "user";
+  const role = await getRole(session.user.id);
+  const comentariosPorProyecto = await getComentariosByProyectoIds(
+    proyectos.map((proyecto) => proyecto.id)
+  );
 
   return (
     <main className="min-h-screen px-6 py-12 text-white md:py-16">
@@ -115,7 +145,7 @@ export default async function ProyectosPage() {
         <section className="grid gap-6">
           {proyectos.length > 0 ? (
             proyectos.map((proyecto) => {
-              const comentarios = getComentarios(proyecto.id);
+              const comentarios = comentariosPorProyecto.get(proyecto.id) || [];
 
               return (
                 <article
@@ -190,10 +220,7 @@ export default async function ProyectosPage() {
                         )}
                       </div>
 
-                      <ComentarioForm
-                        proyectoId={proyecto.id}
-                        userId={session.user.id}
-                      />
+                      <ComentarioForm proyectoId={proyecto.id} />
                     </div>
                   </div>
                 </article>
