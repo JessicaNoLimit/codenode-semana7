@@ -21,39 +21,37 @@ export default function BotonEliminarProyecto({ id }: { id: number }) {
     <>
       <button
         onClick={() => setMostrarModal(true)}
-        className="mt-3 text-red-400 hover:text-red-200 text-sm"
+        className="rounded-full border border-red-400/25 bg-red-400/10 px-4 py-2 text-sm font-medium text-red-200 transition hover:bg-red-400 hover:text-white"
       >
         Eliminar
       </button>
 
       {mostrarModal && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white/10 border border-white/20 backdrop-blur-xl rounded-2xl p-8 text-white max-w-sm w-full text-center">
-            
-            <h2 className="text-xl font-bold mb-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 px-6 backdrop-blur-sm">
+          <div className="w-full max-w-sm rounded-[1.75rem] border border-white/15 bg-[#0b1220]/90 p-8 text-center text-white shadow-[0_24px_80px_rgba(0,0,0,0.45)]">
+            <h2 className="text-2xl font-semibold tracking-tight">
               ¿Eliminar proyecto?
             </h2>
 
-            <p className="text-gray-300 mb-6">
-              Esta acción no se puede deshacer.
+            <p className="mt-4 text-sm leading-7 text-gray-300">
+              Esta acción eliminará el proyecto de tu espacio y no se puede deshacer.
             </p>
 
-            <div className="flex justify-center gap-4">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
               <button
                 onClick={() => setMostrarModal(false)}
-                className="px-4 py-2 rounded bg-white/10 hover:bg-white/20"
+                className="rounded-full border border-white/12 bg-white/[0.05] px-5 py-2.5 text-sm text-gray-200 transition hover:bg-white/10"
               >
                 Cancelar
               </button>
 
               <button
                 onClick={eliminarProyecto}
-                className="px-4 py-2 rounded bg-red-500 hover:bg-red-600"
+                className="rounded-full bg-red-500 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-red-600"
               >
-                Eliminar
+                Eliminar proyecto
               </button>
             </div>
-
           </div>
         </div>
       )}

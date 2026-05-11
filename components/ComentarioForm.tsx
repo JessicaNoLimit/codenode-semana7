@@ -41,21 +41,23 @@ export default function ComentarioForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-3">
+    <form onSubmit={handleSubmit} className="mt-5 flex flex-col gap-3">
       <textarea
         value={texto}
         onChange={(e) => setTexto(e.target.value)}
         placeholder="Escribe un comentario..."
-        className="min-h-20 rounded-xl bg-white/10 border border-white/20 p-3 text-sm text-white placeholder:text-gray-500"
+        className="min-h-28 w-full rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm leading-6 text-white outline-none transition placeholder:text-gray-500 focus:border-cyan-300/40 focus:bg-white/[0.06]"
       />
 
-      <button
-        type="submit"
-        disabled={cargando}
-        className="self-start rounded-full bg-white px-5 py-2 text-sm text-black hover:opacity-80 disabled:opacity-50 transition"
-      >
-        {cargando ? "Guardando..." : "Añadir comentario"}
-      </button>
+      <div className="flex justify-end">
+        <button
+          type="submit"
+          disabled={cargando}
+          className="rounded-full border border-white/12 bg-white px-5 py-2 text-sm font-medium text-black transition hover:scale-[1.01] hover:opacity-90 disabled:opacity-50"
+        >
+          {cargando ? "Guardando..." : "Añadir comentario"}
+        </button>
+      </div>
     </form>
   );
 }

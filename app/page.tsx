@@ -4,32 +4,30 @@ export default function HomePage() {
   return (
     <main className="min-h-screen flex items-center justify-center px-6">
       <div className="text-center max-w-2xl">
-
         <h1 className="text-5xl md:text-7xl font-bold mb-6">
-          Jessica Serrano
+          FOCUS WORKSPACE
         </h1>
 
         <p className="text-lg md:text-xl text-gray-300 mb-8">
-          Desarrolladora web en formación, creando proyectos con Next.js,
-          WordPress y JavaScript paso a paso.
+          Organiza proyectos, guarda avances y comenta ideas desde un único
+          espacio privado.
         </p>
 
-        <div className="flex justify-center gap-4 mt-8">
+        <div className="mt-8 flex justify-center gap-4">
           <Link
-            href="/proyectos"
-            className="bg-white text-black px-8 py-4 rounded-full font-medium hover:opacity-80 transition"
+            href="/login"
+            className="rounded-full bg-white px-8 py-4 font-medium text-black transition hover:opacity-80"
           >
-            Ver proyectos
+            Acceder
           </Link>
 
           <Link
-            href="/perfil"
-            className="bg-white text-black px-8 py-4 rounded-full font-medium hover:opacity-80 transition"
+            href="/register"
+            className="rounded-full bg-white px-8 py-4 font-medium text-black transition hover:opacity-80"
           >
-            Ver mi perfil
+            Crear cuenta
           </Link>
         </div>
-
       </div>
     </main>
   );

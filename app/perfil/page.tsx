@@ -14,20 +14,56 @@ export default async function PerfilPage() {
   }
 
   return (
-    <main className="min-h-screen text-white px-6 py-16 flex items-center justify-center">
-      <div className="max-w-md w-full bg-white/5 border border-white/10 backdrop-blur-xl rounded-2xl p-8 text-center">
-        <h1 className="text-4xl font-bold mb-6">Mi perfil</h1>
+    <main className="min-h-screen px-6 py-12 text-white md:py-16">
+      <div className="mx-auto max-w-3xl">
+        <section className="rounded-[2rem] border border-white/10 bg-white/[0.05] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.35)] backdrop-blur-xl md:p-8">
+          <div className="space-y-8">
+            <div className="space-y-3 text-center md:text-left">
+              <p className="text-xs font-medium uppercase tracking-[0.28em] text-cyan-300/75">
+                Perfil
+              </p>
+              <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">
+                Mi perfil
+              </h1>
+              <p className="max-w-xl text-sm leading-7 text-gray-400">
+                Gestiona la información básica de tu espacio privado sin salir de la app.
+              </p>
+            </div>
 
-        <p className="text-gray-400 mb-2">Nombre:</p>
-        <p className="text-xl mb-6">{session.user.name || "Sin nombre"}</p>
-        <EditarNombreForm nombreActual={session.user.name || ""} />
+            <div className="grid gap-6 md:grid-cols-[1.4fr_0.9fr]">
+              <div className="rounded-[1.5rem] border border-white/8 bg-black/20 p-5 md:p-6">
+                <p className="text-xs font-medium uppercase tracking-[0.22em] text-gray-500">
+                  Nombre actual
+                </p>
+                <p className="mt-3 text-2xl font-medium text-white md:text-3xl">
+                  {session.user.name || "Sin nombre"}
+                </p>
 
-        <p className="text-gray-400 mb-2">Email:</p>
-        <p className="text-xl mb-8">{session.user.email}</p>
+                <div className="mt-6">
+                  <EditarNombreForm nombreActual={session.user.name || ""} />
+                </div>
+              </div>
 
-        <Link href="/proyectos" className="underline hover:opacity-70">
-          ← Ir a proyectos
-        </Link>
+              <div className="rounded-[1.5rem] border border-white/8 bg-white/[0.035] p-5 md:p-6">
+                <p className="text-xs font-medium uppercase tracking-[0.22em] text-gray-500">
+                  Email
+                </p>
+                <p className="mt-3 break-all text-base leading-7 text-gray-200">
+                  {session.user.email}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex justify-center md:justify-start">
+              <Link
+                href="/proyectos"
+                className="inline-flex rounded-full border border-white/12 bg-white/[0.03] px-5 py-2.5 text-sm font-medium text-gray-200 transition hover:border-white/25 hover:bg-white hover:text-black"
+              >
+                Ir a proyectos
+              </Link>
+            </div>
+          </div>
+        </section>
       </div>
     </main>
   );

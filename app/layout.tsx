@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ParticlesBackground from "@/components/ParticlesBackground";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Jessica Serrano | Portfolio",
-  description: "Portfolio con Next.js y WordPress REST API",
+  title: "FOCUS WORKSPACE",
+  description:
+    "Organiza proyectos, guarda avances y comenta ideas desde un único espacio privado.",
 };
 
 export default function RootLayout({
@@ -14,16 +16,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className="bg-black text-white min-h-screen">
-
-        {/* 🌌 Fondo global animado */}
+      <body className="min-h-screen flex flex-col bg-black text-white">
         <ParticlesBackground />
-
-        {/* 📦 Contenido de la app */}
-        <main className="relative z-10 min-h-screen">
-          {children}
-        </main>
-
+        <main className="relative z-10 flex-1">{children}</main>
+        <Footer />
       </body>
     </html>
   );
